@@ -6,29 +6,36 @@ from django.db import models
 
 class Candidate(models.Model):
 
+    STARS = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5')
+    )
+
     BEFORE = (
-        ('before_1', 'Not okay'),
-        ('before_2', 'Rather not'),
-        ('before_3', 'Interesting'),
-        ('before_4', 'We must meet')
+        (1, 'Not for us'),
+        (2, 'Interesting'),
+        (3, 'Fantastic'),
     )
 
     AFTER = (
-        ('after_1', 'It is a no'),
-        ('after_2', 'Rather not'),
-        ('after_3', 'Short list'),
-        ('after_4', 'Make an offer'),
+        (1, 'Not for us'),
+        (2, 'Short list'),
+        (3, 'Hire'),
     )
+
     name = models.CharField(max_length=128)
     role = models.ForeignKey('roles.Role', on_delete=models.CASCADE)
     interview_date = models.DateTimeField(null=True, blank=True)
-    impressions_before = models.CharField(max_length=32, choices=BEFORE, null=True, blank=True)
-    impressions_after = models.CharField(max_length=32, choices=AFTER, null=True, blank=True)
+    impressions_before = models.IntegerField(choices=BEFORE, null=True, blank=True)
+    impressions_after = models.IntegerField(choices=AFTER, null=True, blank=True)
 
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
-    tech_skills = models.IntegerField(default=0, null=True, blank=True)
-    soft_skills = models.IntegerField(default=0, null=True, blank=True)
+    tech_skills = models.IntegerField(choices=STARS, null=True, blank=True)
+    soft_skills = models.IntegerField(choices=STARS, null=True, blank=True)
 
     notes = models.TextField(null=True, blank=True)
     cv = models.FileField(null=True, blank=True)
