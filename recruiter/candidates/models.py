@@ -9,8 +9,8 @@ class Candidate(models.Model):
     BEFORE = (
         ('before_1', 'Not okay'),
         ('before_2', 'Rather not'),
-        ('before_2', 'Interesting'),
-        ('before_3', 'We must meet')
+        ('before_3', 'Interesting'),
+        ('before_4', 'We must meet')
     )
 
     AFTER = (
