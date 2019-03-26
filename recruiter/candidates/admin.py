@@ -8,6 +8,8 @@ from candidates.models import Candidate
 class CandidateAdmin(admin.ModelAdmin):
 
     readonly_fields = ('user',)
+    search_fields = ('name',)
+    list_filter = ('role', 'user')
 
     def get_queryset(self, request):
         queryset = super(CandidateAdmin, self).get_queryset(request)
