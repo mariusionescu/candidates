@@ -25,6 +25,8 @@ class Candidate(models.Model):
     impressions_before = models.CharField(max_length=32, choices=BEFORE, null=True, blank=True)
     impressions_after = models.CharField(max_length=32, choices=AFTER, null=True, blank=True)
 
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+
     tech_skills = models.IntegerField(default=0, null=True, blank=True)
     soft_skills = models.IntegerField(default=0, null=True, blank=True)
 

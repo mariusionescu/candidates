@@ -21,6 +21,8 @@ class Role(models.Model):
     description = models.TextField(null=True, blank=True)
     company = models.ForeignKey('roles.Company', on_delete=models.CASCADE)
 
+    users = models.ManyToManyField('auth.User')
+
     def __str__(self):
         return "{} - {}".format(self.company, self.name)
 
