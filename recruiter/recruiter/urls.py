@@ -17,10 +17,19 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf import settings
 from django.views.static import serve
+from django.http import HttpResponse, HttpResponseRedirect
+
+
+def not_found(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/admin/')
+    return HttpResponse('')
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    url(r'', not_found)
 ]
 
 
