@@ -7,9 +7,15 @@ from candidates.models import Candidate
 
 class CandidateAdmin(admin.ModelAdmin):
 
-    readonly_fields = ('user',)
     search_fields = ('name',)
     list_filter = ('role', 'user')
+    list_display = ('name', 'role', 'impressions_before', 'impressions_after')
+
+    def get_readonly_fields(self, request, obj=None):
+        if request.user.is_superuser:
+            return super(CandidateAdmin, self).get_readonly_fields(request, obj)
+        else:
+            return 'user',
 
     def get_queryset(self, request):
         queryset = super(CandidateAdmin, self).get_queryset(request)
